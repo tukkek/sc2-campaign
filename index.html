@@ -1,0 +1,25 @@
+<title>Starcraft 2 campaign</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+<link href="style.css" rel="stylesheet"/>
+<meta charset='utf-8'/>
+<div id='layout'>
+  <div id='map'></div>
+  <template class='area'><div class='area'>
+    <div class='credits'>$1</div>
+    <div class='label'></div>
+  </div></template>
+  <div id='sidebar'>
+    <div id='credits'>Credits: <input type='number' value='0'></input></div>
+    <div id='info'>
+      <div id='instructions'>instructions here</div>
+      <div id='areainfo' class='hidden'></div>
+    </div>
+  </div>
+</div>
+<script type='module'>
+  import * as background from './src/background.js'
+  import * as map from './src/map.js'
+  
+  background.setup()
+  map.setup()
+</script>
