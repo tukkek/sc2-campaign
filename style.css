@@ -72,6 +72,11 @@ body{
   height:80%;
   padding:1em;
 }
+#sidebar #instructions{
+  border:1px solid white;
+  height:80%;
+  padding:1em;
+}
 .hidden{
   display:none;
 }
