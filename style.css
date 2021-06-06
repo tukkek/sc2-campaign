@@ -13,7 +13,7 @@ body{
   height:100%;
   background-size:cover;
   display:grid;
-  grid-template-columns:repeat(10,10%);
+  grid-template-columns:repeat(14,auto);
   grid-template-rows:repeat(10,10%);
 }
 #sidebar{

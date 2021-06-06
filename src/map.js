@@ -1,9 +1,10 @@
 import * as rpg from './rpg.js'
 import * as sidebar from './sidebar.js'
 import * as maps from './maps.js'
+import * as planet from './planet.js'
 
 const DEPTH=10
-const BREADTH=DEPTH
+const BREADTH=14
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
@@ -11,7 +12,7 @@ const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
 const RACES=['Protoss','Terran','Zerg']
 const DIFFICULTIES=['Very Easy','Easy','Medium','Hard','Harder','Very Hard','Elite','Cheater 1','Cheater 2','Cheater 3']
 const DIFFICULTIESSHORT=['VE','E','M','H','H+','VH','El','C1','C2','C3']
-const BLOCKED=4/10
+const BLOCKED=5/10
 
 class Area{
   constructor(x,y){
