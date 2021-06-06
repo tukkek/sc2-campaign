@@ -1,24 +1,37 @@
 import * as rpg from './rpg.js'
-import * as info from './info.js'
+import * as sidebar from './sidebar.js'
+import * as maps from './maps.js'
 
 const DEPTH=10
 const BREADTH=DEPTH
-
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
+const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
+const RACES=['Protoss','Terran','Zerg']
+const DIFFICULTIES=['Very Easy','Easy','Medium','Hard','Harder','Very Hard','Elite','Cheater 1','Cheater 2','Cheater 3']
+const DIFFICULTIESSHORT=['VE','E','M','H','H+','VH','El','C1','C2','C3']
+const BLOCKED=4/10
 
 class Area{
   constructor(x,y){
-    this.credits=rpg.randomize(x)
+    this.x=x
+    this.y=y
+    this.credits=1+rpg.randomize(x)
     this.hostile=true
     this.visual=AREA.cloneNode(true)
     this.visual.onclick=()=>this.click()
-    this.visual.onmouseenter=()=>info.show(this)
-    this.visual.onmouseleave=()=>info.close()
+    this.visual.onmouseenter=()=>sidebar.show(this)
+    this.visual.onmouseleave=()=>sidebar.close()
+    this.blocked=false
+    this.race=rpg.pick(RACES)
+    this.map=''
   }
   
-  get label(){return 'T - VE'}
+  get difficulty(){return DIFFICULTIES[this.x]}
+  get difficultyshort(){return DIFFICULTIESSHORT[this.x]}
+  
+  get label(){return `${this.race[0]}`}
   
   update(){
     let v=this.visual
@@ -41,9 +54,22 @@ class Area{
   
   click(){
     this.hostile=!this.hostile
-    info.addcredits(this.credits)
+    sidebar.addcredits(this.credits)
     this.credits=0
     this.update()
+  }
+  
+  get neighbors(){
+    return NEIGHBORS
+      .map(xy=>[this.x+xy[0],this.y+xy[1]])
+      .filter(xy=>0<=xy[0]&&xy[0]<BREADTH)
+      .filter(xy=>0<=xy[1]&&xy[1]<DEPTH)
+      .map(xy=>AREAS[xy[0]][xy[1]])
+      .filter(a=>!a.blocked)
+  }
+  
+  populate(){
+    this.map=maps.get(1+this.neighbors.length)
   }
 }
 
@@ -54,18 +80,24 @@ class Block extends Area{
     this.visual.classList.add('block')
     this.visual.onmouseenter=false
     this.visual.onmouseleave=false
+    this.blocked=true
   }
   
   get label(){return ''}
 }
 
 export function setup(){
-  for(let x=DEPTH;x>0;x--){
+  let areas=[]
+  for(let x=BREADTH-1;x>=0;x--){
     AREAS[x]=[]
-    for(let y=BREADTH;y>0;y--){
-      let a=rpg.chancein(3)?new Block(x,y):new Area(x,y)
+    for(let y=DEPTH-1;y>=0;y--){
+      let a=Math.random()<BLOCKED?new Block(x,y):new Area(x,y)
       a.place()
       AREAS[x][y]=a
+      areas.push(a)
     }
   }
+  let populated=rpg.shuffle(areas).filter(a=>!a.blocked)
+    .sort((a,b)=>a.neighbors.length-b.neighbors.length)
+  for(let p of populated) p.populate()
 }
