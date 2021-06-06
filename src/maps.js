@@ -13,10 +13,10 @@ maps[8]=["abandoned parish","abyss","alaeni enclave","asper mountain","atlas sta
 export function get(nplayers){
   if(nplayers<2) nplayers=2
   let pool=Array.from(Object.keys(maps))
+    .map(n=>parseInt(n))
     .filter(n=>nplayers<=n&&n<=nplayers*2)
-    .filter(n=>maps[n].length>0)
-  pool.sort()
-  pool=pool[0]
+    .flatMap(n=>new Array(maps[n].length).fill(n))
+  pool=rpg.pick(pool)
   let map=rpg.roll(0,maps[pool].length-1)
   return maps[pool].splice(map,1)[0]
 }
