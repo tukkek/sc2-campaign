@@ -4,7 +4,7 @@ import * as maps from './maps.js'
 import * as planet from './planet.js'
 
 const DEPTH=10
-const BREADTH=14
+const BREADTH=12
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
