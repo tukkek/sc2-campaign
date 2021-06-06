@@ -18,24 +18,26 @@ class Area{
   constructor(x,y){
     this.x=x
     this.y=y
-    this.credits=1+rpg.randomize(x)
+    this.credits=1+rpg.randomize(y)
     this.hostile=true
     this.visual=AREA.cloneNode(true)
     this.visual.onclick=()=>this.click()
     this.visual.onmouseenter=()=>sidebar.show(this)
     this.visual.onmouseleave=()=>sidebar.close()
     this.blocked=false
-    this.race=rpg.pick(RACES)
+    this.race=''
     this.map=''
   }
   
-  get difficulty(){return DIFFICULTIES[this.x]}
-  get difficultyshort(){return DIFFICULTIESSHORT[this.x]}
+  get difficulty(){return DIFFICULTIES[this.y]}
+  get difficultyshort(){return DIFFICULTIESSHORT[this.y]}
   
   get label(){return `${this.race[0]}`}
   
   update(){
     let v=this.visual
+    if(this.hostile) 
+      v.classList.add(this.race.toLowerCase())
     v.querySelector('.label').innerHTML=this.label
     let credits=this.credits==0?'':'$'+this.credits
     v.querySelector('.credits').innerHTML=credits
@@ -48,15 +50,14 @@ class Area{
     }
   }
   
-  place(){
-    this.update()
-    MAP.appendChild(this.visual)
-  }
+  place(){MAP.appendChild(this.visual)}
   
   click(){
     this.hostile=!this.hostile
     sidebar.addcredits(this.credits)
     this.credits=0
+    let r=this.race.toLowerCase()
+    this.visual.classList.remove(r)
     this.update()
   }
   
@@ -85,20 +86,45 @@ class Block extends Area{
   }
   
   get label(){return ''}
+  
+  populate(){}//don't
+  update(){}//dont
+}
+
+/* Simulates expansion, at each turn seeding some or no races
+ * and possibly expanding previously-placed ones. */
+function placeraces(areas){
+  let empty=Array.from(areas)
+  while(empty.length>0){
+    empty=rpg.shuffle(empty).filter(a=>a.race=='')
+    let seeds=rpg.roll(0,RACES.length-1)
+    let races=rpg.shuffle(Array.from(RACES)).slice(0,seeds)
+    for(let i=0;i<Math.min(empty.length,races.length);i++){
+      empty[i].race=races[i]
+    }
+    for(let a of areas.filter(a=>a.race!='')){
+      if(rpg.chancein(9)) for(let n of a.neighbors)
+        n.race=a.race
+    }
+  }
 }
 
 export function setup(){
   let areas=[]
-  for(let x=BREADTH-1;x>=0;x--){
-    AREAS[x]=[]
-    for(let y=DEPTH-1;y>=0;y--){
+  for(let y=DEPTH-1;y>=0;y--){
+    for(let x=BREADTH-1;x>=0;x--){
       let a=Math.random()<BLOCKED?new Block(x,y):new Area(x,y)
       a.place()
+      if(y==DEPTH-1) AREAS[x]=[]
       AREAS[x][y]=a
       areas.push(a)
     }
   }
   let populated=rpg.shuffle(areas).filter(a=>!a.blocked)
     .sort((a,b)=>a.neighbors.length-b.neighbors.length)
-  for(let p of populated) p.populate()
+  placeraces(areas)
+  for(let p of populated){
+    p.populate()
+    p.update()
+  }
 }
