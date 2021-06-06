@@ -70,18 +70,16 @@ body{
   text-align:center;
 }
 #sidebar #info{
-  border:1px solid white;
-  height:80%;
-  padding:.25em;
+  border-top:1px dotted white;
+  padding-top:1em;
 }
 #sidebar .header{
   margin-bottom:1em;
   font-weight:bold;
 }
 #sidebar #instructions li{
-  font-size:.8em;
+  font-size:.84em;
   text-align:justify;
-  padding-right:1em;
 }
 .hidden{
   display:none;

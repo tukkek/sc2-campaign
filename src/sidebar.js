@@ -19,7 +19,7 @@ function inform(name,value){
 }
 
 export function show(area){
-  for(let d of AREAINFO.querySelectorAll('div.data.generated')) d.remove()
+  for(let d of AREAINFO.querySelectorAll('li.data.generated')) d.remove()
   inform('Map',area.map)
   inform('Owner',`${area.race} (${area.difficulty})`)
   for(let n of area.neighbors)
