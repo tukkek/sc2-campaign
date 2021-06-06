@@ -10,10 +10,9 @@ function pad(n){
 
 function format(now=Date.now()){
   let ellapsed=(now-start)/1000
-  let hours=pad(Math.floor(ellapsed/60))
-  let minutes=pad(Math.floor(hours/60))
-  let seconds=pad(ellapsed%60)
-  return `${hours}:${minutes}:${seconds}`
+  let minutes=Math.floor(ellapsed/60)
+  let hours=Math.floor(minutes/60)
+  return `${pad(hours)}:${pad(minutes%60)}:${pad(ellapsed%60)}`
 }
 
 START.onclick=()=>{

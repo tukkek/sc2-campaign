@@ -1,5 +1,5 @@
 import * as rpg from './rpg.js'
-import './timer.js'
+import './clock.js'
 
 const CREDITS=document.querySelector('#credits input')
 const INSTRUCTIONS=document.querySelector('#instructions')
