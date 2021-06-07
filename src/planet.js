@@ -144,7 +144,7 @@ function setup(){
       base.generate()
       for(let v of variants){
         let name=v.toString().toLowerCase()
-        console.log(`${name} (${v.themes}): ${v.pool.length} maps`)
+        console.log(`${name} (${v.themes}): ${v.pool.length} maps on pool`)
       }
     }
   }
