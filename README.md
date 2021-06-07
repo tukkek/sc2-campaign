@@ -12,19 +12,19 @@ For instructions on how to play, read the in-app sidebar. [Click here to check o
 
 Current planets and variations:
 
-* paradise planet (lush,water): 81 maps on pool
+* paradise planet (lush, water): 81 maps on pool
 * gas planet (orbital): 41 maps on pool
-* factory planet (industrial,urban): 75 maps on pool
+* factory planet (industrial, urban): 75 maps on pool
 * rock planet (rocky): 64 maps on pool
 * ice planet (cold): 36 maps on pool
- * ice shrine planet (cold,temple): 62 maps on pool
- * corrupt ice planet (cold,dark,toxic): 82 maps on pool
+  * ice shrine planet (cold, temple): 62 maps on pool
+  * corrupt ice planet (cold, dark, toxic): 82 maps on pool
 * desert planet (desert): 37 maps on pool
- * desert shrine planet (desert,temple): 64 maps on pool
- * corrupt desert planet (desert,dark,toxic): 83 maps on pool
+  * desert shrine planet (desert, temple): 64 maps on pool
+  * corrupt desert planet (desert, dark, toxic): 83 maps on pool
 * scorching planet (inferno): 28 maps on pool
- * scorching shrine planet (inferno,temple): 56 maps on pool
- * corrupt scorching planet (inferno,dark,toxic): 74 maps on pool
+  * scorching shrine planet (inferno, temple): 56 maps on pool
+  * corrupt scorching planet (inferno, dark, toxic): 74 maps on pool
  
 ## Campaign generation
 
