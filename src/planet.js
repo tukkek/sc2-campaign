@@ -66,7 +66,7 @@ class Factory extends Planet{
 
 class Rock extends Planet{
   constructor(){
-    super('Rock','grand_canyon.jpg',[maps.ROCKY])
+    super('Tectonic','grand_canyon.jpg',[maps.ROCKY])
     this.enhance=false
   }
 }

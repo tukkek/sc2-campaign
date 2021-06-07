@@ -15,7 +15,7 @@ Current planets and variations:
 * paradise planet (lush, water): 81 maps on pool
 * gas planet (orbital): 41 maps on pool
 * factory planet (industrial, urban): 75 maps on pool
-* rock planet (rocky): 64 maps on pool
+* tectonic planet (rocky): 64 maps on pool
 * ice planet (cold): 36 maps on pool
   * ice shrine planet (cold, temple): 62 maps on pool
   * corrupt ice planet (cold, dark, toxic): 82 maps on pool
