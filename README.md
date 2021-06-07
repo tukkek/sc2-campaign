@@ -12,19 +12,19 @@ For instructions on how to play, read the in-app sidebar. [Click here to check o
 
 Current planets and variations:
 
-* Paradise planet (lush, water): 74 maps on pool
-* Gas planet (orbital): 41 maps on pool
-* Factory planet (industrial, urban): 69 maps on pool
-* Rock planet (rocky): 59 maps on pool
-* Ice planet (cold): 33 maps on pool
- * Ice shrine planet (cold, temple): 57 maps on pool
- * Corrupt ice planet (cold, dark, toxic): 75 maps on pool
-* Desert planet (desert): 34 maps on pool
- * Desert shrine planet (desert, temple): 59 maps on pool
- * Corrupt desert planet (desert, dark, toxic): 76 maps on pool
-* Scorching planet (inferno): 26 maps on pool
- * Scorching shrine planet (inferno, temple): 51 maps on pool
- * Corrupt scorching planet (inferno, dark, toxic): 68 maps on pool
+* paradise planet (lush,water): 81 maps on pool
+* gas planet (orbital): 41 maps on pool
+* factory planet (industrial,urban): 75 maps on pool
+* rock planet (rocky): 64 maps on pool
+* ice planet (cold): 36 maps on pool
+ * ice shrine planet (cold,temple): 62 maps on pool
+ * corrupt ice planet (cold,dark,toxic): 82 maps on pool
+* desert planet (desert): 37 maps on pool
+ * desert shrine planet (desert,temple): 64 maps on pool
+ * corrupt desert planet (desert,dark,toxic): 83 maps on pool
+* scorching planet (inferno): 28 maps on pool
+ * scorching shrine planet (inferno,temple): 56 maps on pool
+ * corrupt scorching planet (inferno,dark,toxic): 74 maps on pool
  
 ## Campaign generation
 
@@ -40,3 +40,5 @@ Each campaign is centered around a given planet type, in the hopes of delivering
 Particular care was put into maximizing the breadth of possiible gameplay scenarions while minimizing any immersion-breaking aspects, as much as possible. Each planet type has a curated, large pool of maps which should almost always ensure that every tile represents an unique in-game battle map, without repeats. (Given some constraints and circumstances, battle maps may end up repeating but these should be relatively rare).
 
 If a base planet type doesn't have enough battle maps to cover the average campaign map without repeats, variations are used to increase the map pool. Those variations may apply to multiple base planet types and have been equally curated in an attempt to produce a large amount of gameplay scenarios in unique, thematically-coherent experience every time a new campaign is generated.
+
+To increase gameplay- and thematic-variety within a campaign, planets have 10% of their map pools comprised of maps foreign to their native themes. While it makes sense for planets to have varied micro-biomes, this can result in a very small chance of mismatches happening (like an ice-based map being next to a volcano map) but thankfully the odds are fairly low as the foreign maps themselves are relatively rare, making it easy to apply a degree of suspension of disbelief then. (Orbital maps and planets are exempt from this step, as adding high-orbit maps to a land-based campaign and vice-versa makes little sense in this context).

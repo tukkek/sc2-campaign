@@ -1,7 +1,7 @@
 import * as rpg from './rpg.js'
 import * as maps from './maps.js'
 
-const DEBUG=true
+const DEBUG=false
 
 class Planet{
   constructor(name,background,themes){
@@ -9,6 +9,7 @@ class Planet{
     this.background=background //filename
     this.themes=Array.from(themes)
     this.enhance=true //whether to add affix to enlarge map pool
+    this.diverse=true //expand pool with a minor amount of foreign maps
     this.pool=[] //maps left
     this.used=[] //maps generated
   }
@@ -19,6 +20,7 @@ class Planet{
       affix.apply(this)
     }
     this.pool=maps.filter(this.themes)
+    if(this.diverse) new Diverse().apply(this)
   }
   
   getmap(players,p=this.pool){
@@ -51,6 +53,7 @@ class Gas extends Planet{
   constructor(){
     super('Gas','2k_jupiter.jpg',[maps.ORBITAL])
     this.enhance=false
+    this.diverse=false
   }
 }
 
@@ -114,11 +117,20 @@ class Corrupted extends Affix{
   rename(planet){planet.name=`${this.name} ${planet.name}`}
 }
 
-/* TODO
-  25 temple maps maps.js:385:13
-  35 dark maps maps.js:385:13
-  7 toxic maps
- */
+class Diverse extends Affix{
+  constructor(){
+    super('diverse',[])
+  }
+  
+  apply(planet){
+    let foreign=maps.maps.filter(
+      m=>m.themes.indexOf('orbital')<0
+        &&planet.pool.indexOf(m)<0)
+    let extra=Math.min(planet.pool.length/10,foreign.length)
+    foreign=rpg.shuffle(foreign).slice(0,extra)
+    planet.pool.push(...foreign)
+  }
+}
 
 export var current=false
 
