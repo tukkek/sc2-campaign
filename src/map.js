@@ -1,10 +1,9 @@
 import * as rpg from './rpg.js'
 import * as sidebar from './sidebar.js'
-import * as maps from './maps.js'
 import * as planet from './planet.js'
 
 const DEPTH=10
-const BREADTH=12
+const BREADTH=8
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
@@ -13,6 +12,7 @@ const RACES=['Protoss','Terran','Zerg']
 const DIFFICULTIES=['Very Easy','Easy','Medium','Hard','Harder','Very Hard','Elite','Cheater 1','Cheater 2','Cheater 3']
 const DIFFICULTIESSHORT=['VE','E','M','H','H+','VH','El','C1','C2','C3']
 const BLOCKED=5/10
+const DEBUG=false
 
 class Area{
   constructor(x,y){
@@ -69,10 +69,6 @@ class Area{
       .map(xy=>AREAS[xy[0]][xy[1]])
       .filter(a=>!a.blocked)
   }
-  
-  populate(){
-    this.map=maps.get(1+this.neighbors.length)
-  }
 }
 
 class Block extends Area{
@@ -87,7 +83,6 @@ class Block extends Area{
   
   get label(){return ''}
   
-  populate(){}//don't
   update(){}//dont
 }
 
@@ -110,6 +105,8 @@ function placeraces(areas){
 }
 
 export function setup(){
+  let b=`url('planets/${planet.current.background}')`
+  MAP.style['background-image']=b
   let areas=[]
   for(let y=DEPTH-1;y>=0;y--){
     for(let x=BREADTH-1;x>=0;x--){
@@ -124,7 +121,8 @@ export function setup(){
     .sort((a,b)=>a.neighbors.length-b.neighbors.length)
   placeraces(areas)
   for(let p of populated){
-    p.populate()
+    p.map=planet.current.getmap(1+p.neighbors.length)
     p.update()
   }
+  if(DEBUG) console.log(populated.length+' areas generated')
 }

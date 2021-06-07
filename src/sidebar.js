@@ -1,5 +1,6 @@
 import * as rpg from './rpg.js'
 import './clock.js'
+import * as planet from './planet.js'
 
 const CREDITS=document.querySelector('#credits input')
 const INSTRUCTIONS=document.querySelector('#instructions')
@@ -14,12 +15,14 @@ export function addcredits(c){CREDITS.value=getcredits()+c}
 function inform(name,value){
   let d=DATA.cloneNode(true)
   d.querySelector('.name').innerHTML=name
+  value=value.toString().toUpperCase()
   d.querySelector('.value').innerHTML=value
   AREAINFO.querySelector('.generated').appendChild(d)
 }
 
 export function show(area){
   for(let d of AREAINFO.querySelectorAll('li.data.generated')) d.remove()
+  inform('Planet',planet.current)
   inform('Map',area.map)
   inform('Owner',`${area.race} (${area.difficulty})`)
   for(let n of area.neighbors)
