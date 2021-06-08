@@ -39,7 +39,7 @@ Bonus cards work similarly, allowing the exchange of credits for some sort of in
  
 ## Campaign generation
 
-The layout of the campaign map is generated randomly, with a 50% chance of each tile representing a battle or not. On a small number of maps, these tiles may not connect all the way through from bottom to top - on those cases either generate a new campaign by reloading or consider distant tiles to be connected as needed. 
+The layout of the campaign map is generated randomly, with a 50% chance of each tile representing a battle or not. On a small number of maps, these tiles may not connect all the way through from bottom to top - on those cases either generate a new campaign by reloading; consider distant tiles to be connected as needed or to try to win an economic vicory instead. 
 
 Race placement is simple but effective in generating maps that make some common-sense at an eye-glance. An expansion-simulation generation phase works by turns, until every open tile is occupied. During each turn:
 
