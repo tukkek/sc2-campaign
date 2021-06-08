@@ -4,7 +4,7 @@ For instructions on how to play, read the in-app sidebar. [Click here to check o
 
 ## Features
 
-* Built-in rules for campaign credits and goals, making each campaign much more than a series of battles
+* Built-in rules for campaign credits, bonuses and goals, making each campaign much more than a series of battles
 * Supports 343 official Legacy of the Void maps by Blizzard, organized into 12 map categories
 * 7 base planet types, each based on different map categories
 * Generates open-ended campaigns with an average of 40 tiles each
