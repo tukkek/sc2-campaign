@@ -31,7 +31,7 @@ export function show(area){
   for(let d of AREAINFO.querySelectorAll('li.data.generated')) d.remove()
   inform('Planet',planet.current)
   inform('Map',area.map)
-  inform('Owner',`${area.race} (${area.difficulty})`)
+  inform(area.hostile?'Foe':'Ally',`${area.race} (${area.difficulty})`)
   for(let n of area.neighbors)
     inform(n.hostile?'Foe':'Ally',`${n.race} (${n.difficulty})`)
   inform('Spoils','$'+area.credits)

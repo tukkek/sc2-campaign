@@ -46,7 +46,7 @@ class Goal extends Card{
 class Bonus extends Card{
   constructor(text,cost){
     super('Bonus: '+text)
-    this.reward=-cost
+    this.reward=-Math.max(cost-2,0)
   }
 }
 
