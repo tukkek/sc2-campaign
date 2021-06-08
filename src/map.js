@@ -1,6 +1,7 @@
 import * as rpg from './rpg.js'
 import * as sidebar from './sidebar.js'
 import * as planet from './planet.js'
+import * as ai from './ai.js'
 
 const DEPTH=10
 const BREADTH=8
@@ -8,9 +9,6 @@ const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
 const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
-const RACES=['Protoss','Terran','Zerg']
-const DIFFICULTIES=['Very Easy','Easy','Medium','Hard','Harder','Very Hard','Elite','Cheater 1','Cheater 2','Cheater 3']
-const DIFFICULTIESSHORT=['VE','E','M','H','H+','VH','El','C1','C2','C3']
 const BLOCKED=5/10
 const DEBUG=false
 
@@ -23,14 +21,13 @@ class Area{
     this.visual=AREA.cloneNode(true)
     this.visual.onclick=()=>this.click()
     this.visual.onmouseenter=()=>sidebar.show(this)
-    this.visual.onmouseleave=()=>sidebar.close()
     this.blocked=false
     this.race=''
     this.map=''
   }
   
-  get difficulty(){return DIFFICULTIES[this.y]}
-  get difficultyshort(){return DIFFICULTIESSHORT[this.y]}
+  get difficulty(){return ai.DIFFICULTIES[this.y]}
+  get difficultyshort(){return ai.DIFFICULTIESSHORT[this.y]}
   
   get label(){return `${this.race[0]}`}
   
@@ -77,7 +74,6 @@ class Block extends Area{
     this.credits=0
     this.visual.classList.add('block')
     this.visual.onmouseenter=false
-    this.visual.onmouseleave=false
     this.blocked=true
   }
   
@@ -92,8 +88,8 @@ function placeraces(areas){
   let empty=Array.from(areas)
   while(empty.length>0){
     empty=rpg.shuffle(empty).filter(a=>a.race=='')
-    let seeds=rpg.roll(0,RACES.length-1)
-    let races=rpg.shuffle(Array.from(RACES)).slice(0,seeds)
+    let seeds=rpg.roll(0,ai.RACES.length-1)
+    let races=rpg.shuffle(Array.from(ai.RACES)).slice(0,seeds)
     for(let i=0;i<Math.min(empty.length,races.length);i++){
       empty[i].race=races[i]
     }

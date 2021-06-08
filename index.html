@@ -15,27 +15,41 @@
       <button id='gamble'>Gamble!</button>
     </div>
     <div id='info'>
-      <div id='areainfo' class='hidden'>
-        <div class='header'>Area information</div>
-        <ul class='generated'>
-          <template class='data'><li class='generated data'>
-            <strong class='name'></strong>: <span class='value'></strong>
-          </li></template>
-        </ul>
+      <div class='tabs header'>
+        <span class='selected'>Cards</span>
+        <span>Area information</span>
+        <span>Instructions</span>
       </div>
-      <div id='instructions'>
-        <div class='header'>Instructions</div>
+      <div id='cards'>
+        <template class='card'><div class='card'>
+          <div class='text'></div>
+          <div class='actions'>
+            <button class='claim'>Claim</button>
+            <button class='sell'>Sell (+$1)</button>
+            Sticky <input type='checkbox' class='sticky'/>
+          </div>
+        </div></template>
+        <button id='draw'>Draw a new card (-$2)</button>
+        <div>You may claim goals after a battle.</div>
+      </div>
+      <div id='instructions' class='hidden'>
         <ol>
           <li>Start by clicking a territory on the bottom row for free. (Challenge: start higher on the map).</li>
           <li>Each turn, attack a hostile area next to any of your owned territories.</li>
           <li>Play as any race you want. (Challenge: use only the race from your starting area or area you're attacking from).</li>
           <li>Play by setting up custom melee matches (or play a ladder match, if teams are even). Set-up as shown when hovering the mouse over the target area.</li>
           <li>If you win, click the target area to capture it. If you lose, click your own area to lose control over it instead.</li>
-          <li>You earn credits when capturing an area for the first time. Use them to weaken an AI ($1 = -10%) or to hire an AI ally once ($1 = Very Easy, $2 = Easy)...</li>
-          <li>You can gamble your credits! Give five dollars to Activision every time you do this, to feel pride and accomplishment.</li>
+          <li>Earn credits to spend on cards by capturing an area for the first time. Claim bonus cards as you use them and goal cards after they're completed. You can invest in cards to make them sticky so that they won't be removed from your hand once claimed.</li>
+          <li>Gamble credits for a sense of pride and accomplishment!</li>
           <li>You win by capturing a territory on the top row or by having $50 in the bank. (Challenge: double or triple those goals or give yourself a time limit).</li>
-          <li>Reload this page to get a new campaign.</li>
         </ol>
+      </div>
+      <div id='areainfo' class='hidden'>
+        <ul class='generated'>
+          <template class='data'><li class='generated data'>
+            <strong class='name'></strong>: <span class='value'></strong>
+          </li></template>
+        </ul>
       </div>
     </div>
   </div>
