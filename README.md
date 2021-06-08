@@ -9,7 +9,7 @@ For instructions on how to play, read the in-app sidebar. [Click here to check o
 * 7 base planet types, each based on different map categories
 * Generates open-ended campaigns with an average of 40 tiles each
 * Each battle has an unique team setup, taking into consideration the current state of the campaign map
-* Generates any amount of campaigns, instantly, from your browser
+* Generate any amount of campaigns, instantly, from your browser
 
 Current planets and variations:
 
@@ -27,13 +27,15 @@ Current planets and variations:
   * scorching shrine planet (inferno, temple): 56 maps on pool
   * corrupt scorching planet (inferno, dark, toxic): 74 maps on pool
   
-## Goal cards
+## Goal and bonus cards
 
 Since the customization options for custom melee matches are limited in Starcraft II, the most common progression approach of unlocking and enhancing units and tech isn't possible. Instead, a deck of goal cards is built into the campaign rules, allowing players to buy and complete gameplay goals in return for extra credit. More importantly, players can develop and invest in a set of permanent long-term campaign goals.
 
 While this is an interesting system in itself for gaining more credits during a campaign, its ultimate goal is to nudge players into different (and possibly even unconventional) playstyles during each campaign - encouraging players to develop new strategies and manage their goal cards carefully to make the most out of them. It is almost impossible to end-up with an ideal set of cards so experimentation and gradual tuning is highly incentivized - while at the same time being a completely optional system that can be ignored.
 
 If a player focuses their campaign on a single race, many of the goals will turn out to be impossible to complete - however, if they are unwilling to play a different race in order to claim those goals, the cards can still be sold for half the price of a new one, making it easy ot "fish" for more appropriate cards.
+
+Bonus cards work similarly, allowing the exchange of credits for some sort of in-game advantage. This is a way to gamefy the match customization options in a manner that adds some amount of strategy and variety to campaigns.
  
 ## Campaign generation
 
