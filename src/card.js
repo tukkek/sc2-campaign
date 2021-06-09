@@ -94,11 +94,18 @@ export function draw(){
 
 function setup(){
   deck.push(...UNITS.map(u=>new Goal('Recruit '+u)))
+  let starting=[]
   for(let r of ai.RACES){
-    deck.push(...ai.DIFFICULTIES.map(
-      d=>new Bonus(`Add a ${r} (${d}) ally to your team`,ai.DIFFICULTIES.indexOf(d))))
+    let allies=ai.DIFFICULTIES.map(
+      d=>new Bonus(`Add a ${r} (${d}) ally to your team`,ai.DIFFICULTIES.indexOf(d)))
+    deck.push(...allies)
+    starting.push(...allies.filter(c=>c.reward==-1))
     for(let i=1;i<=5;i++)
       deck.push(new Bonus(`Reduce a ${r} AI opponent's power by ${-i*10}% (doesn't stack)`,i))
+  }
+  for(let s of rpg.shuffle(starting).slice(0,2)){
+    hand.push(s)
+    deck.splice(deck.indexOf(s),1)
   }
 }
 

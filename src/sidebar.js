@@ -104,6 +104,7 @@ function setup(){
       update()
     }
   }
+  update()
 }
 
 setup()

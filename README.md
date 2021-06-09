@@ -36,6 +36,8 @@ While this is an interesting system in itself for gaining more credits during a 
 If a player focuses their campaign on a single race, many of the goals will turn out to be impossible to complete - however, if they are unwilling to play a different race in order to claim those goals, the cards can still be sold for half the price of a new one, making it easy ot "fish" for more appropriate cards.
 
 Bonus cards work similarly, allowing the exchange of credits for some sort of in-game advantage. This is a way to gamefy the match customization options in a manner that adds some amount of strategy and variety to campaigns.
+
+Since the campaigns are procedurally-generated and some of the results can be quite difficulty to progress in early on, players start with a couple of ally cards on their hand (but claiming them still require obtaining credits) - this can also help with a bad luck streak if they can't seem to draw any helpful cards,
  
 ## Campaign generation
 
