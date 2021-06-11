@@ -11,6 +11,7 @@ const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
 const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
 const BLOCKED=5/10
+const CARDS=document.querySelector('#tab-cards')
 const DEBUG=false
 
 class Area{
@@ -74,7 +75,7 @@ class Block extends Area{
     super(x,y)
     this.credits=0
     this.visual.classList.add('block')
-    this.visual.onmouseenter=false
+    this.visual.onmouseenter=()=>CARDS.click()
     this.blocked=true
   }
   
