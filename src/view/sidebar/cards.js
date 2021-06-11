@@ -1,5 +1,5 @@
 import * as card from '../../model/card.js'
-import * as sidebar from './sidebar.js'
+import * as credits from './credits.js'
 
 export const CARDS=document.querySelector('#info #cards')
 const DRAW=document.querySelector('#info #cards button#draw');
@@ -12,15 +12,15 @@ function showcard(c){
   if(c.reward>0) claim.innerHTML+=` (+$${c.reward})`
   else if(c.reward<0) claim.innerHTML+=` ($${c.reward})`
   claim.onclick=()=>{
-    if(c.reward>0) sidebar.addcredits(c.reward)
-    else if(!sidebar.spend(-c.reward)) return false
+    if(c.reward>0) credits.add(c.reward)
+    else if(!credits.spend(-c.reward)) return false
     if(!c.sticky){
       c.discard()
       update()
     }
   }
   div.querySelector('.sell').onclick=()=>{
-    sidebar.addcredits(1)
+    credits.add(1)
     c.discard()
     update()
   }
@@ -28,7 +28,7 @@ function showcard(c){
   sticky.checked=false
   sticky.onclick=()=>{
     if(c.sticky||!confirm('Spend $10 to turn this into a permanent goal?')||
-      !sidebar.spend(10)) return false
+      !credits.spend(10)) return false
     c.sticky=true
     return true
   }
@@ -43,7 +43,7 @@ function update(){
 
 function setup(){
   DRAW.onclick=()=>{
-    if(sidebar.spend(2)){
+    if(credits.spend(2)){
       card.draw()
       update()
     }

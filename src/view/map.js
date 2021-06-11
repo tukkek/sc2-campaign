@@ -2,6 +2,7 @@ import * as rpg from '../controller/rpg.js'
 import * as sidebar from './sidebar/sidebar.js'
 import * as planet from '../model/planet.js'
 import * as ai from '../model/ai.js'
+import * as credits from './sidebar/credits.js'
 
 const DEPTH=10
 const BREADTH=8
@@ -51,7 +52,7 @@ class Area{
   
   click(){
     this.hostile=!this.hostile
-    sidebar.addcredits(this.credits)
+    credits.add(this.credits)
     this.credits=0
     let r=this.race.toLowerCase()
     this.visual.classList.remove(r)

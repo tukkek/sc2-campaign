@@ -1,19 +1,14 @@
 import * as rpg from '../../controller/rpg.js'
-import './clock.js'
+import * as clock from './clock.js'
 import * as planet from '../../model/planet.js'
 import * as cards from './cards.js'
+import * as credits from './credits.js'
 
-const CREDITS=document.querySelector('#credits input')
 const INSTRUCTIONS=document.querySelector('#instructions')
 const AREAINFO=document.querySelector('#areainfo')
 const DATA=document.querySelector('template.data').content.childNodes[0]
-const GAMBLE=document.querySelector('button#gamble')
 const TABS=Array.from(document.querySelectorAll('#info .tabs *'))
 const TABBED=[cards.CARDS,AREAINFO,INSTRUCTIONS]
-
-function getcredits(){return parseInt(CREDITS.value)}
-
-export function addcredits(c){CREDITS.value=getcredits()+c}
 
 function inform(name,value){
   let d=DATA.cloneNode(true)
@@ -46,18 +41,7 @@ function select(tab){
   TABBED[TABS.indexOf(tab)].classList.remove('hidden')
 }
 
-export function spend(credits){
-  let bank=getcredits()
-  if(bank<credits) return false
-  CREDITS.value=bank-credits
-  return true
-}
-
 function setup(){
-  GAMBLE.onclick=()=>{
-    let c=getcredits()
-    if(c>0) CREDITS.value=rpg.randomize(c)
-  }
   for(let t of TABS){
     t.onmouseover=()=>select(t)
     t.onclick=()=>select(t)
