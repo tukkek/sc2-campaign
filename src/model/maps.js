@@ -1,4 +1,4 @@
-import * as rpg from './rpg.js'
+import * as rpg from '../controller/rpg.js'
 
 export const COLD='cold' //ice, tundras...
 export const DESERT='desert' //low-vegetation

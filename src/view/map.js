@@ -1,7 +1,7 @@
-import * as rpg from './rpg.js'
-import * as sidebar from './sidebar.js'
-import * as planet from './planet.js'
-import * as ai from './ai.js'
+import * as rpg from '../controller/rpg.js'
+import * as sidebar from './sidebar/sidebar.js'
+import * as planet from '../model/planet.js'
+import * as ai from '../model/ai.js'
 
 const DEPTH=10
 const BREADTH=8

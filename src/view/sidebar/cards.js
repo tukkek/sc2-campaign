@@ -1,4 +1,4 @@
-import * as card from './card.js'
+import * as card from '../../model/card.js'
 import * as sidebar from './sidebar.js'
 
 export const CARDS=document.querySelector('#info #cards')

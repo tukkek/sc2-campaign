@@ -1,6 +1,6 @@
-import * as rpg from './rpg.js'
+import * as rpg from '../../controller/rpg.js'
 import './clock.js'
-import * as planet from './planet.js'
+import * as planet from '../../model/planet.js'
 import * as cards from './cards.js'
 
 const CREDITS=document.querySelector('#credits input')

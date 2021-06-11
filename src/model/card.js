@@ -1,4 +1,4 @@
-import * as rpg from './rpg.js'
+import * as rpg from '../controller/rpg.js'
 import * as ai from './ai.js'
 
 const UNITS=[

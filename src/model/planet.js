@@ -1,4 +1,4 @@
-import * as rpg from './rpg.js'
+import * as rpg from '../controller/rpg.js'
 import * as maps from './maps.js'
 
 const DEBUG=false
