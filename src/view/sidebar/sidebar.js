@@ -18,16 +18,24 @@ function inform(name,value){
   AREAINFO.querySelector('.generated').appendChild(d)
 }
 
+function cull(allies,map){
+  allies.sort((a,b)=>b.y-a.y)
+  return allies.slice(0,map.players/2-1)
+}
+
 export function show(area){
   TABS[1].click()
-  for(let d of AREAINFO.querySelectorAll('li.data.generated')) d.remove()
+  for(let d of AREAINFO.querySelectorAll('li.data.generated'))
+    d.remove()
   inform('Planet',planet.current)
-  inform('Map',`${area.map} (${area.map.players})`)
-  let areas=[area]
-  areas.push(...area.neighbors)
-  for(let n of area.neighbors.filter(a=>!a.hostile))
+  let m=area.map
+  inform('Map',`${m.players}.${m}`)
+  let allies=area.neighbors.filter(a=>!a.hostile)
+  for(let n of cull(allies,m))
     inform('Ally',`${n.race} (${n.difficulty})`)
-  for(let n of area.neighbors.filter(a=>a.hostile))
+  let foes=[area]
+  foes.push(...cull(area.neighbors.filter(a=>a.hostile),m))
+  for(let n of foes)
     inform('Foe',`${n.race} (${n.difficulty})`)
   inform('Spoils','$'+area.credits)
   AREAINFO.classList.remove('hidden')
