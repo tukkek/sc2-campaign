@@ -1,7 +1,9 @@
 const ELLAPSED=document.querySelector('span#ellapsed')
 const START=document.querySelector('button#time')
+const PAUSE=document.querySelector('button#pause')
 
-var start=0
+var ellapsed=0
+var ticking=false
 
 function pad(n){
   n=new String(Math.round(n))
@@ -9,15 +11,17 @@ function pad(n){
 }
 
 function format(now=Date.now()){
-  let ellapsed=(now-start)/1000
   let minutes=Math.floor(ellapsed/60)
   let hours=Math.floor(minutes/60)
   return `${pad(hours)}:${pad(minutes%60)}:${pad(ellapsed%60)}`
 }
 
-START.onclick=()=>{
-  start=Date.now()
-  setInterval(()=>ELLAPSED.innerHTML=format(),1000)
+function tick(){
+  ellapsed+=1
+  ELLAPSED.innerHTML=format()
 }
+
+START.onclick=()=>{ticking=setInterval(tick,1000)}
+PAUSE.onclick=()=>{clearInterval(ticking)}
 
 ELLAPSED.innerHTML=format(0)
