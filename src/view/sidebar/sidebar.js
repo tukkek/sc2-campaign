@@ -32,11 +32,11 @@ export function show(area){
   inform('Map',`${m.players}.${m}`)
   let allies=area.neighbors.filter(a=>!a.hostile)
   for(let n of cull(allies,m))
-    inform('Ally',`${n.race} (${n.difficulty})`)
+    inform('Ally',`${n.difficulty} ${n.race}`)
   let foes=[area]
   foes.push(...cull(area.neighbors.filter(a=>a.hostile),m))
   for(let n of foes)
-    inform('Foe',`${n.race} (${n.difficulty})`)
+    inform('Foe',`${n.difficulty} ${n.race}`)
   inform('Spoils','$'+area.credits)
   AREAINFO.classList.remove('hidden')
   INSTRUCTIONS.classList.add('hidden')

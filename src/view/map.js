@@ -28,8 +28,8 @@ class Area{
     this.map=''
   }
   
-  get difficulty(){return ai.DIFFICULTIES[this.x]}
-  get difficultyshort(){return ai.DIFFICULTIESSHORT[this.x]}
+  get difficulty(){return ai.DIFFICULTIES[this.y]}
+  get difficultyshort(){return ai.DIFFICULTIESSHORT[this.y]}
   
   get label(){return `${this.race[0]}`}
   
