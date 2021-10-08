@@ -112,9 +112,12 @@ body{
 #sidebar #cards button{
   padding:.1em;
 }
-#sidebar #cards button#draw{
+#sidebar #cards #draw{
   width:100%;
   margin:1em 0em;
+  display:grid;
+  grid-auto-flow:column;
+  gap:.3em;
 }
 #sidebar #instructions li{
   font-size:.84em;

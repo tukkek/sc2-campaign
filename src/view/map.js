@@ -10,7 +10,7 @@ const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
 const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
-const BLOCKED=5/10
+const BLOCKED=.6
 const CARDS=document.querySelector('#tab-cards')
 const DEBUG=false
 
@@ -18,7 +18,7 @@ class Area{
   constructor(x,y){
     this.x=x
     this.y=y
-    this.credits=1+rpg.randomize(y)
+    this.credits=Math.max(1,rpg.randomize(y+1))
     this.hostile=true
     this.visual=AREA.cloneNode(true)
     this.visual.onclick=()=>this.click()
@@ -28,8 +28,8 @@ class Area{
     this.map=''
   }
   
-  get difficulty(){return ai.DIFFICULTIES[this.y]}
-  get difficultyshort(){return ai.DIFFICULTIESSHORT[this.y]}
+  get difficulty(){return ai.DIFFICULTIES[this.x]}
+  get difficultyshort(){return ai.DIFFICULTIESSHORT[this.x]}
   
   get label(){return `${this.race[0]}`}
   
@@ -88,33 +88,60 @@ class Block extends Area{
  * and possibly expanding previously-placed ones. */
 function placeraces(areas){
   let empty=Array.from(areas)
+  let races=rpg.shuffle(Array.from(ai.RACES))
+  let seed=0
   while(empty.length>0){
     empty=rpg.shuffle(empty).filter(a=>a.race=='')
     let seeds=rpg.roll(0,ai.RACES.length-1)
-    let races=rpg.shuffle(Array.from(ai.RACES)).slice(0,seeds)
     for(let i=0;i<Math.min(empty.length,races.length);i++){
-      empty[i].race=races[i]
+      empty[i].race=races[seed%races.length]
+      seed+=1
     }
-    for(let a of areas.filter(a=>a.race!='')){
-      if(rpg.chancein(9)) for(let n of a.neighbors)
+    for(let a of areas.filter(a=>a.race!=''))
+      if(rpg.chancein(2)) for(let n of a.neighbors)
         n.race=a.race
-    }
   }
+}
+
+function reset(){for(let x=0;x<BREADTH;x++) for(let y=0;y<DEPTH;y++) AREAS[x][y]=false}
+
+function grow(x,y){
+  if(!(0<=x&&x<BREADTH)) return
+  if(!(0<=y&&y<DEPTH)) return
+  if(AREAS[x][y]) return
+  AREAS[x][y]=true
+  if(Math.random()>BLOCKED) grow(x-1,y)
+  if(Math.random()>BLOCKED) grow(x+1,y)
+  if(Math.random()>BLOCKED) grow(x,y-1)
+  if(Math.random()>BLOCKED) grow(x,y+1)
+}
+
+function done(){
+  for(let x=0;x<BREADTH;x++) if(AREAS[x][DEPTH-1]) return true
+  return false
 }
 
 export function setup(){
   let b=`url('planets/${planet.current.background}')`
   MAP.style['background-image']=b
+  for(let x=0;x<BREADTH;x++) AREAS[x]=[]
+  reset()
+  while(!done()){
+    reset()
+    grow(rpg.roll(0,BREADTH),0)
+  }
+  let i=0;for(let x=0;x<BREADTH;x++) for(let y=0;y<DEPTH;y++) if(AREAS[x][y]) i+=1;console.log(i)//TODO 
   let areas=[]
-  for(let y=DEPTH-1;y>=0;y--){
-    for(let x=BREADTH-1;x>=0;x--){
-      let a=Math.random()<BLOCKED?new Block(x,y):new Area(x,y)
-      a.place()
-      if(y==DEPTH-1) AREAS[x]=[]
-      AREAS[x][y]=a
+  for(let x=0;x<BREADTH;x++){
+    for(let y=0;y<DEPTH;y++){
+      let a=AREAS[x][y]?new Area(x,y):new Block(x,y)
+      AREAS[a.x][a.y]=a
       areas.push(a)
     }
   }
+  for(let y=DEPTH-1;y>=0;y--)
+    for(let x=0;x<BREADTH;x++)
+      AREAS[x][y].place()
   let populated=rpg.shuffle(areas).filter(a=>!a.blocked)
     .sort((a,b)=>a.neighbors.length-b.neighbors.length)
   placeraces(areas)

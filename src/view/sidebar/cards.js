@@ -2,7 +2,9 @@ import * as card from '../../model/card.js'
 import * as credits from './credits.js'
 
 export const CARDS=document.querySelector('#info #cards')
-const DRAW=document.querySelector('#info #cards button#draw');
+const DRAWPROTOSS=document.querySelector('#info #cards button#drawprotoss');
+const DRAWTERRAN=document.querySelector('#info #cards button#drawterran');
+const DRAWZERG=document.querySelector('#info #cards button#drawzerg');
 const CARD=CARDS.querySelector('template.card').content.childNodes[0]
 
 function showcard(c){
@@ -10,7 +12,7 @@ function showcard(c){
   div.querySelector('.text').innerHTML=c.text+'.'
   let claim=div.querySelector('.claim')
   if(c.reward>0) claim.innerHTML+=` (+$${c.reward})`
-  else if(c.reward<0) claim.innerHTML+=` ($${c.reward})`
+  else if(c.reward<0) claim.innerHTML+=` (-$${-c.reward})`
   claim.onclick=()=>{
     if(c.reward>0) credits.add(c.reward)
     else if(!credits.spend(-c.reward)) return false
@@ -24,14 +26,6 @@ function showcard(c){
     c.discard()
     update()
   }
-  let sticky=div.querySelector('input.sticky')
-  sticky.checked=false
-  sticky.onclick=()=>{
-    if(c.sticky||!confirm('Spend $10 to turn this into a permanent goal?')||
-      !credits.spend(10)) return false
-    c.sticky=true
-    return true
-  }
   CARDS.insertBefore(div,CARDS.firstChild)
 }
 
@@ -41,13 +35,17 @@ function update(){
   for(let h of card.hand) showcard(h)
 }
 
-function setup(){
-  DRAW.onclick=()=>{
-    if(credits.spend(2)){
-      card.draw()
-      update()
-    }
+function draw(deck){
+  if(credits.spend(2)){
+    card.draw(deck)
+    update()
   }
+}
+
+function setup(){
+  DRAWPROTOSS.onclick=()=>draw(card.protoss)
+  DRAWTERRAN.onclick=()=>draw(card.terran)
+  DRAWZERG.onclick=()=>draw(card.zerg)
   update()
 }
 
