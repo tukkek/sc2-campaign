@@ -10,7 +10,7 @@ const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
 const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
-const BLOCKED=.6
+const BLOCKED=.84
 const CARDS=document.querySelector('#tab-cards')
 const DEBUG=false
 
@@ -61,12 +61,15 @@ class Area{
   }
   
   get neighbors(){
-    return NEIGHBORS
-      .map(xy=>[this.x+xy[0],this.y+xy[1]])
-      .filter(xy=>0<=xy[0]&&xy[0]<BREADTH)
-      .filter(xy=>0<=xy[1]&&xy[1]<DEPTH)
-      .map(xy=>AREAS[xy[0]][xy[1]])
-      .filter(a=>!a.blocked)
+    let n=[]
+    for(let x=this.x-1;x<=this.x+1;x++)
+      for(let y=this.y-1;y<=this.y+1;y++)
+        if((x!=this.x||y!=this.y)&&
+           0<=x&&x<BREADTH&&
+           0<=y&&y<DEPTH&&
+           !AREAS[x][y].blocked)
+            n.push(AREAS[x][y])
+    return n
   }
 }
 
@@ -110,10 +113,14 @@ function grow(x,y){
   if(!(0<=y&&y<DEPTH)) return
   if(AREAS[x][y]) return
   AREAS[x][y]=true
-  if(Math.random()>BLOCKED) grow(x-1,y)
-  if(Math.random()>BLOCKED) grow(x+1,y)
-  if(Math.random()>BLOCKED) grow(x,y-1)
-  if(Math.random()>BLOCKED) grow(x,y+1)
+  for(let growx=x-1;growx<=x+1;growx++)
+    for(let growy=y-1;growy<=y+1;growy++)
+      if((growx!=x||growy!=y)&&Math.random()>BLOCKED)
+        grow(growx,growy)
+//   if(Math.random()>BLOCKED) grow(x+1,y+0)
+//   if(Math.random()>BLOCKED) grow(x-1,y+0)
+//   if(Math.random()>BLOCKED) grow(x+0,y+1)
+//   if(Math.random()>BLOCKED) grow(x+0,y+1)
 }
 
 function done(){
@@ -122,15 +129,12 @@ function done(){
 }
 
 export function setup(){
-  let b=`url('planets/${planet.current.background}')`
-  MAP.style['background-image']=b
   for(let x=0;x<BREADTH;x++) AREAS[x]=[]
   reset()
   while(!done()){
     reset()
     grow(rpg.roll(0,BREADTH),0)
   }
-  let i=0;for(let x=0;x<BREADTH;x++) for(let y=0;y<DEPTH;y++) if(AREAS[x][y]) i+=1;console.log(i)//TODO 
   let areas=[]
   for(let x=0;x<BREADTH;x++){
     for(let y=0;y<DEPTH;y++){
@@ -142,12 +146,13 @@ export function setup(){
   for(let y=DEPTH-1;y>=0;y--)
     for(let x=0;x<BREADTH;x++)
       AREAS[x][y].place()
-  let populated=rpg.shuffle(areas).filter(a=>!a.blocked)
-    .sort((a,b)=>a.neighbors.length-b.neighbors.length)
   placeraces(areas)
+  let populated=areas.filter(a=>!a.blocked).sort((a,b)=>(b.y+b.neighbors.length)-(a.y+a.neighbors.length))
   for(let p of populated){
-    p.map=planet.current.getmap(1+p.neighbors.length)
+    p.map=planet.current.getmap((p.neighbors.length+1)*2)
+    p.credits=p.map.players//TODO
     p.update()
   }
+  MAP.style['background-image']=`url('planets/${planet.current.background}')`
   if(DEBUG) console.log(populated.length+' areas generated')
 }

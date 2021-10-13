@@ -1,3 +1,5 @@
+import * as rpg from '../../controller/rpg.js'
+
 const CREDITS=document.querySelector('#credits input')
 const GAMBLE=document.querySelector('button#gamble')
 

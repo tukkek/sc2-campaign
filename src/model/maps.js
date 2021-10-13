@@ -1,19 +1,23 @@
 import * as rpg from '../controller/rpg.js'
 
-export const COLD='cold' //ice, tundras...
-export const DESERT='desert' //low-vegetation
-export const INFERNO='inferno' //lava, magma, steam...
-export const LUSH='lush' //heavy vegetation
-export const ROCKY='rocky' //exposed rock, some vegetation...
-export const WATER='water' //bodies of water, beaches...
-export const ORBITAL='orbital' //anything with an outer-space background
+export const COLD='barren' //ice, tundras...
+export const ROCKY='barren' //exposed rock, some vegetation...
 
-export const INDUSTRIAL='industrial' //heavy machinery, pavement...
-export const URBAN='urban' //buildings, roads...
+export const DESERT='volcanic' //low-vegetation
+export const INFERNO='volcanic' //lava, magma, steam...
 
-export const TEMPLE='temple'//natural spaces with with lower-tech or sparse improvements and buildings
-export const DARK='dark' //stylized, neon-heavy, creepy...
-export const TOXIC='toxic' //anything that looks poisonous, radioactive...
+export const LUSH='paradise' //heavy vegetation
+export const WATER='paradise' //bodies of water, beaches...
+
+export const ORBITAL='factory' //anything with an outer-space background
+export const INDUSTRIAL='factory' //heavy machinery, pavement...
+export const URBAN='factory' //buildings, roads...
+
+export const TEMPLE='exotic'//natural spaces with with lower-tech or sparse improvements and buildings
+export const DARK='exotic' //stylized, neon-heavy, creepy...
+export const TOXIC='exotic' //anything that looks poisonous, radioactive...
+
+export const THEMES=[COLD,DESERT,INFERNO,LUSH,ROCKY,WATER,INDUSTRIAL,ORBITAL,TEMPLE,URBAN,DARK,TOXIC].sort()
 
 const DEBUG=false
 
@@ -374,22 +378,16 @@ export var maps=[
   new ScMap(8,"zenith",[DARK]),
 ]
 
-export function filter(themes){
+export function filter(theme){
   let pool=[]
-  for(let m of maps)
-    for(let t of m.themes)
-      if(themes.indexOf(t)>=0){
-        pool.push(m)
-        break
-      }
+  for(let m of maps) if(m.themes.indexOf(theme)>=0)
+    pool.push(m)
   return pool
 }
 
 if(DEBUG){
   let total=0
-  let themes=[COLD,DESERT,INFERNO,LUSH,ROCKY,WATER,
-    INDUSTRIAL,ORBITAL,TEMPLE,URBAN,DARK,TOXIC]
-  for(let t of themes){
+  for(let t of THEMES.sort()){
     let nmaps=maps.filter(
       a=>a.themes.indexOf(t)>=0).length
     total+=nmaps

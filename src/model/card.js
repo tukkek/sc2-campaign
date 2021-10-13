@@ -9,7 +9,6 @@ class Card{
   }
   
   discard(){
-    this.sticky=false
     hand.splice(hand.indexOf(this),1)
   }
 }
@@ -30,7 +29,6 @@ class Bonus extends Card{
   constructor(text,cost){
     super('Bonus: '+text)
     this.reward=cost
-    this.sticky=false
   }
 }
 
