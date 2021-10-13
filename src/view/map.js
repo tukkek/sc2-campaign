@@ -150,7 +150,6 @@ export function setup(){
   let populated=areas.filter(a=>!a.blocked).sort((a,b)=>(b.y+b.neighbors.length)-(a.y+a.neighbors.length))
   for(let p of populated){
     p.map=planet.current.getmap((p.neighbors.length+1)*2)
-    p.credits=p.map.players//TODO
     p.update()
   }
   MAP.style['background-image']=`url('planets/${planet.current.background}')`
