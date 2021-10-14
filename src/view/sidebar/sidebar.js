@@ -23,6 +23,11 @@ function cull(allies,map){
   return allies.slice(0,map.players/2-1)
 }
 
+function sort(allies){
+  allies.sort((a,b)=>a.y-b.y)
+  return allies
+}
+
 export function show(area){
   TABS[1].click()
   for(let d of AREAINFO.querySelectorAll('li.data.generated'))
@@ -31,11 +36,11 @@ export function show(area){
   let m=area.map
   inform('Map',`${m.players}.${m}`)
   let allies=area.neighbors.filter(a=>!a.hostile)
-  for(let n of cull(allies,m))
+  for(let n of sort(cull(allies,m)))
     inform('Ally',`${n.difficulty} ${n.race}`)
   let foes=[area]
   foes.push(...cull(area.neighbors.filter(a=>a.hostile),m))
-  for(let n of foes)
+  for(let n of sort(foes))
     inform('Foe',`${n.difficulty} ${n.race}`)
   inform('Spoils','$'+area.credits)
   AREAINFO.classList.remove('hidden')
