@@ -9,7 +9,7 @@ const BREADTH=8
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
-const NEIGHBORS=[[-1,0],[+1,0],[0,-1],[0,+1]]
+const NEIGHBORS=[[0,+1],[+1,0],[0,-1],[-1,0]]
 const BLOCKED=.84
 const CARDS=document.querySelector('#tab-cards')
 const DEBUG=false
@@ -59,17 +59,19 @@ class Area{
     this.visual.classList.remove(r)
     this.update()
   }
-  
+
   get neighbors(){
-    let n=[]
-    for(let x=this.x-1;x<=this.x+1;x++)
-      for(let y=this.y-1;y<=this.y+1;y++)
-        if((x!=this.x||y!=this.y)&&
-           0<=x&&x<BREADTH&&
-           0<=y&&y<DEPTH&&
-           !AREAS[x][y].blocked)
-            n.push(AREAS[x][y])
-    return n
+    let neighbors=[]
+    for(let n of NEIGHBORS){
+      let x=this.x+n[0]
+      let y=this.y+n[1]
+      if(!(0<=x&&x<BREADTH)) continue
+      if(!(0<=y&&y<DEPTH)) continue
+      let a=AREAS[x][y]
+      if(a.blocked) continue
+      neighbors.push(a)
+    }
+    return neighbors
   }
 }
 

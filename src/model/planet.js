@@ -70,7 +70,6 @@ class Planet{
   }
 }
 
-
 class Affix{
   constructor(name,themes){
     this.name=name //string
