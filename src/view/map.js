@@ -4,7 +4,7 @@ import * as planet from '../model/planet.js'
 import * as ai from '../model/ai.js'
 import * as credits from './sidebar/credits.js'
 
-const DEPTH=10
+const DEPTH=11
 const BREADTH=8
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
@@ -18,7 +18,8 @@ class Area{
   constructor(x,y){
     this.x=x
     this.y=y
-    this.credits=Math.max(1,rpg.randomize(y+1))
+    this.credits=rpg.randomize(y)
+    if(this.y>0&&this.credits<1) this.credits=1
     this.hostile=true
     this.visual=AREA.cloneNode(true)
     this.visual.onclick=()=>this.click()
@@ -153,6 +154,7 @@ export function setup(){
   for(let p of populated){
     p.map=planet.current.getmap((p.neighbors.length+1)*2)
     p.update()
+    if(p.y==0) p.click()
   }
   MAP.style['background-image']=`url('planets/${planet.current.background}')`
   if(DEBUG) console.log(populated.length+' areas generated')
