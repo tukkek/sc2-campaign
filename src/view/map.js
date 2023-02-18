@@ -9,7 +9,8 @@ const BREADTH=8
 const MAP=document.querySelector('#map')
 const AREA=document.querySelector('template.area').content.childNodes[0]
 const AREAS=[]
-const NEIGHBORS=[[0,+1],[+1,0],[0,-1],[-1,0]]
+const ORTHOGONAL=[[0,+1],[+1,0],[0,-1],[-1,0]]
+const DIAGONAL=[[-1,-1],[-1,0],[-1,+1],[0,-1],[0,+1],[+1,-1],[+1,0],[+1,+1]]
 const BLOCKED=.84
 const CARDS=document.querySelector('#tab-cards')
 const DEBUG=false
@@ -18,8 +19,7 @@ class Area{
   constructor(x,y){
     this.x=x
     this.y=y
-    this.credits=rpg.randomize(y)
-    if(this.y>0&&this.credits<1) this.credits=1
+    this.credits=this.appraise()
     this.hostile=true
     this.visual=AREA.cloneNode(true)
     this.visual.onclick=()=>this.click()
@@ -31,8 +31,16 @@ class Area{
   
   get difficulty(){return ai.DIFFICULTIES[this.y]}
   get difficultyshort(){return ai.DIFFICULTIESSHORT[this.y]}
-  
   get label(){return `${this.race[0]}`}
+  
+  appraise(){
+    if(this.y==0) return 0
+    let value=rpg.randomize(Math.pow(2,this.y))
+    if(value<1) value=1
+    let i=0
+    for(;value>10;i++) value/=10
+    return Math.round(value)*Math.pow(10,i)
+  }
   
   update(){
     let v=this.visual
@@ -63,7 +71,7 @@ class Area{
 
   get neighbors(){
     let neighbors=[]
-    for(let n of NEIGHBORS){
+    for(let n of DIAGONAL){
       let x=this.x+n[0]
       let y=this.y+n[1]
       if(!(0<=x&&x<BREADTH)) continue
