@@ -1,6 +1,6 @@
 # Starcraft II campaign
 
-For instructions on how to play, read the in-app sidebar. [Click here to check out the latest version](https://tukkek.github.io/starcraft2-campaign/)!
+For instructions on how to play, read the in-app sidebar. [Click here to access the latest version](https://tukkek.github.io/sc2-campaign/)!
 
 ## Features
 
