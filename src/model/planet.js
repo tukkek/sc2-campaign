@@ -12,9 +12,9 @@ const BACKGROUNDS=[
   [maps.COLD,'2k_mercury.jpg'],
   [maps.DESERT,'2k_mars.jpg'],
   [maps.INFERNO,'2k_venus_surface.jpg'],
-  [maps.TEMPLE,false], //TODO
-  [maps.DARK,false], //TODO
-  [maps.TOXIC,false] //TODO
+  [maps.TEMPLE,'thai_desert.jpg'],
+  [maps.DARK,'lunar_surface.jpg'],
+  [maps.TOXIC,'boa_vista.jpg']
 ]
 
 class Planet{
